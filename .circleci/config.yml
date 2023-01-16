@@ -63,7 +63,7 @@ commands:
 #           at: ~/
 #       - run: cat ~/output.txt 
  
-  Exercise: Infrastructure Creation
+#   Exercise: Infrastructure Creation
 #   Exercise - Rollback
   create_infrastructure: 
     docker:
