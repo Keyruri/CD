@@ -82,15 +82,15 @@ jobs:
 #       - destroy_environment
       
 #   Exercise: Smoke Testing Negative
-#   Test_fail:
-#     docker:
-#       - image: alpine:latest
-#     steps:
-#       - run: apk add --update curl
-#       - run:
-#           name: Test Job
-#           command: return 1
-#       - destroy_environment
+  Test_fail:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run: apk add --update curl
+      - run:
+          name: Test Job
+          command: return 1
+      - destroy_environment
 
 
 #   Exercise: Config and Deployment
@@ -231,9 +231,9 @@ workflows:
 #           requires:
 #             - upload_file
         - create_infrastructure
-#       - Test_fail:
-#           requires: 
-#             - create_infrastructure
+      - Test_fail:
+          requires: 
+            - create_infrastructure
           
 #       - configure_infrastructure
 #       - smoke_test
