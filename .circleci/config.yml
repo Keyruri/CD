@@ -231,9 +231,9 @@ workflows:
 #           requires:
 #             - upload_file
         - create_infrastructure
-      - Test_fail:
-          requires: 
-            - create_infrastructure
+        - Test_fail:
+            requires: 
+              - create_infrastructure
           
 #       - configure_infrastructure
 #       - smoke_test
