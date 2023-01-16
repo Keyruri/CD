@@ -30,7 +30,7 @@ commands:
           
 
 
-# jobs:
+jobs:
 #   # Exercise: Creating a Simple Workflow
 #   # Exercise: Environment Variables
 #   # Exercise: Reusable Job Code 
@@ -63,7 +63,6 @@ commands:
 #           at: ~/
 #       - run: cat ~/output.txt 
  
-#   Exercise: Infrastructure Creation
 #   Exercise - Rollback
   create_infrastructure: 
     docker:
