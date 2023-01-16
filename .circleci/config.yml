@@ -82,7 +82,7 @@ commands:
 #       - run: return 1
 #       - destroy_environment
       
-  Exercise: Smoke Testing Negative
+#   Exercise: Smoke Testing Negative
   Test_fail:
     docker:
       - image: alpine:latest
