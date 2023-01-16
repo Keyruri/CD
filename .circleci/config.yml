@@ -10,12 +10,12 @@ orbs:
 
 commands:
   # Exercise: Reusable Job Code
-  print_pipeline_id:
-    parameters:
-      id: 
-        type: string
-    steps:
-      - run: echo << parameters.id >>
+#   print_pipeline_id:
+#     parameters:
+#       id: 
+#         type: string
+#     steps:
+#       - run: echo << parameters.id >>
 
   # Exercise - Rollback
   destroy_environment:
@@ -45,23 +45,23 @@ commands:
 #       - run: echo $_env_name
 
   # Exercise: Sharing Files (Job names may have changed)
-  upload_file:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - run: echo "THIS IS A SAMPLE TEXT" > ~/output.txt  
-      - persist_to_workspace:
-          root: ~/
-          paths: 
-            - output.txt  
+#   upload_file:
+#     docker:
+#       - image: circleci/node:13.8.0
+#     steps:
+#       - run: echo "THIS IS A SAMPLE TEXT" > ~/output.txt  
+#       - persist_to_workspace:
+#           root: ~/
+#           paths: 
+#             - output.txt  
 
-  download_file:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: cat ~/output.txt 
+#   download_file:
+#     docker:
+#       - image: circleci/node:13.8.0
+#     steps:
+#       - attach_workspace:
+#           at: ~/
+#       - run: cat ~/output.txt 
  
   Exercise: Infrastructure Creation
 #   Exercise - Rollback
@@ -227,10 +227,10 @@ workflows:
     jobs:
       # - welcome/run
 #       - print_greetings
-      - upload_file
-      - download_file:
-          requires:
-            - upload_file
+#       - upload_file
+#       - download_file:
+#           requires:
+#             - upload_file
       - create_infrastructure
       - Test_fail:
           requires: 
