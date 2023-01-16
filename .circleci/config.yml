@@ -232,7 +232,7 @@ workflows:
           requires:
             - upload_file
       - create_infrastructure
-       Test_fail:
+      - Test_fail:
           requires: 
             - create_infrastructure
           
