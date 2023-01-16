@@ -63,24 +63,35 @@ jobs:
           at: ~/
       - run: cat ~/output.txt 
  
-  # Exercise: Infrastructure Creation
-  # Exercise - Rollback
-  # create_infrastructure: 
-  #   docker:
-  #     - image: amazon/aws-cli
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Create Cloudformation Stack
-  #         command: |
-  #           aws cloudformation deploy \
-  #             --template-file template.yml \
-  #             --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
-  #             --region us-east-1
-      # Fail the job intentionally to simulate an error.
-      # Uncomment the line below if you want to fail the current step
-      # - run: return 1
-      # - destroy_environment
+  Exercise: Infrastructure Creation
+  Exercise - Rollback
+  create_infrastructure: 
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Create Cloudformation Stack
+          command: |
+            aws cloudformation deploy \
+              --template-file template.yml \
+              --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+              --region us-east-1
+      Fail the job intentionally to simulate an error.
+      Uncomment the line below if you want to fail the current step
+#       - run: return 1
+#       - destroy_environment
+      
+  Exercise: Smoke Testing Negative
+  Test_fail:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run: apk add --update curl
+      - run:
+          name: Test Job
+          command: return 1
+      - destroy_environment
 
 
 #   Exercise: Config and Deployment
@@ -101,23 +112,23 @@ jobs:
 #           command: |
 #             ansible-playbook -i inventory.txt main-remote.yml
 
-  Exercise: Smoke Testing
-  smoke_test:
-    docker:
-      - image: alpine:latest
-    steps:
-      - run: apk add --update curl
-      - run:
-          name: smoke test
-          command: |
-            URL="https://blog.udacity.com/"
-            # Test if website exists
-            if curl -s --head ${URL} 
-            then
-              return 0
-            else
-              return 1
-            fi
+#   Exercise: Smoke Testing
+#   smoke_test:
+#     docker:
+#       - image: alpine:latest
+#     steps:
+#       - run: apk add --update curl
+#       - run:
+#           name: smoke test
+#           command: |
+#             URL="https://blog.udacity.com/"
+#             # Test if website exists
+#             if curl -s --head ${URL} 
+#             then
+#               return 0
+#             else
+#               return 1
+#             fi
 #       - destroy_environment      
   
   # Exercise: Promote to Production - Job 1 
@@ -220,13 +231,17 @@ workflows:
       - download_file:
           requires:
             - upload_file
-      # - create_infrastructure
+      - create_infrastructure
+       Test_fail:
+          requires: 
+            - create_infrastructure
+          
 #       - configure_infrastructure
-      - smoke_test
+#       - smoke_test
       # - create_and_deploy_front_end
-      # - promote_to_production:
-      #     requires: 
-      #       - create_and_deploy_front_end
+#       - promote_to_production:
+#           requires: 
+#             - create_and_deploy_front_end
       # - get_last_deployment_id
       # - clean_up_old_front_end:
       #     requires:
